@@ -34,8 +34,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="Sib-Cg-bha">
-                                <rect key="frame" x="16" y="198.5" width="343" height="334"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Sib-Cg-bha">
+                                <rect key="frame" x="16" y="224.5" width="343" height="282"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Osd-5w-B78">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="50"/>
@@ -46,12 +46,9 @@
                                         <state key="normal" title="Favorites" backgroundImage="favorites">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
-                                        <connections>
-                                            <action selector="didPressFavoritesButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Dz1-IX-fje"/>
-                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tZ2-0e-b1Y">
-                                        <rect key="frame" x="0.0" y="71" width="343" height="50"/>
+                                        <rect key="frame" x="0.0" y="58" width="343" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="o88-nA-yib"/>
                                         </constraints>
@@ -61,7 +58,7 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gVS-YU-GSe">
-                                        <rect key="frame" x="0.0" y="142" width="343" height="50"/>
+                                        <rect key="frame" x="0.0" y="116" width="343" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="Ljg-EV-8ha"/>
                                         </constraints>
@@ -71,7 +68,7 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T68-XN-XYd">
-                                        <rect key="frame" x="0.0" y="213" width="343" height="50"/>
+                                        <rect key="frame" x="0.0" y="174" width="343" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="faL-B1-Qp2"/>
                                         </constraints>
@@ -81,7 +78,7 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="14z-aJ-H4i">
-                                        <rect key="frame" x="0.0" y="284" width="343" height="50"/>
+                                        <rect key="frame" x="0.0" y="232" width="343" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="R7F-ds-Hso"/>
                                         </constraints>
@@ -145,11 +142,11 @@
                             <size key="itemSize" width="160" height="250"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="16" minY="16" maxX="16" maxY="16"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="detailsCell" id="hL5-rG-fzo" customClass="DetailsCell" customModule="nearBest" customModuleProvider="target">
-                                <rect key="frame" x="16" y="16" width="160" height="250"/>
+                                <rect key="frame" x="0.0" y="0.0" width="160" height="250"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                     <rect key="frame" x="0.0" y="0.0" width="160" height="250"/>
@@ -158,21 +155,21 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dYW-sL-Bqj">
                                             <rect key="frame" x="0.0" y="0.0" width="160" height="250"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CrJ-gh-euj">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CrJ-gh-euj">
                                             <rect key="frame" x="0.0" y="193.5" width="160" height="20.5"/>
                                             <color key="backgroundColor" red="0.19607843137254902" green="0.19607843137254902" blue="0.19607843137254902" alpha="0.69999999999999996" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rating: 3.8" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GEM-Tb-jzP">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rating: 3.8" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GEM-Tb-jzP">
                                             <rect key="frame" x="0.0" y="214" width="160" height="18"/>
                                             <color key="backgroundColor" red="0.19607843137254902" green="0.19607843137254902" blue="0.19607843137254902" alpha="0.69999999999999996" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Ratings:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wVA-0R-bi8">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Ratings:" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wVA-0R-bi8">
                                             <rect key="frame" x="0.0" y="232" width="160" height="18"/>
                                             <color key="backgroundColor" red="0.19607843137254902" green="0.19607843137254902" blue="0.19607843137254902" alpha="0.69999999999999996" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -189,6 +186,9 @@
                                                 <constraint firstAttribute="width" secondItem="vAp-Cz-4yx" secondAttribute="height" multiplier="1:1" id="LZD-Ob-okh"/>
                                             </constraints>
                                             <state key="normal" image="favorite_empty_icon"/>
+                                            <connections>
+                                                <action selector="didPressFavoritesButton:" destination="hL5-rG-fzo" eventType="touchUpInside" id="uNo-f7-CF6"/>
+                                            </connections>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="best_indicator" translatesAutoresizingMaskIntoConstraints="NO" id="uao-4s-NKj">
                                             <rect key="frame" x="8" y="8" width="44" height="44"/>
@@ -226,7 +226,9 @@
                                 <connections>
                                     <outlet property="bestPlaceIndicator" destination="uao-4s-NKj" id="hjS-OK-sUD"/>
                                     <outlet property="favoritesButton" destination="vAp-Cz-4yx" id="2fx-PW-YgS"/>
+                                    <outlet property="loadingIndicator" destination="dbw-fZ-wR0" id="K9G-ck-Ak9"/>
                                     <outlet property="nameLabel" destination="CrJ-gh-euj" id="BPs-XO-g6J"/>
+                                    <outlet property="placeThumbnail" destination="dYW-sL-Bqj" id="rtX-7m-Azd"/>
                                     <outlet property="ratingLabel" destination="GEM-Tb-jzP" id="cKt-Du-1lP"/>
                                     <outlet property="totalRatingsLabel" destination="wVA-0R-bi8" id="eQF-Ab-LT4"/>
                                 </connections>

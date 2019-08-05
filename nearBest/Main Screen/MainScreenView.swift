@@ -31,6 +31,10 @@ class MainScreenView: UIViewController, CLLocationManagerDelegate {
         setupButtons()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        removeLoadingIndicators()
+    }
+    
     //MARK: - Location Settings
     
     func showLocationErrorMessage(){
@@ -75,7 +79,7 @@ class MainScreenView: UIViewController, CLLocationManagerDelegate {
         case restaurantsButton:
             selectedButtonIdentifier = "restaurant"
         case mallsButton:
-            selectedButtonIdentifier = "Mall"
+            selectedButtonIdentifier = "Shopping Mall"
         case museumsButton:
             selectedButtonIdentifier = "museum"
         case hospitalsButton:
@@ -87,13 +91,17 @@ class MainScreenView: UIViewController, CLLocationManagerDelegate {
     }
     
     func removeLoadingIndicators(){
-            loadingIndicator.stopAnimating()
-            
-            favoritesButton.isEnabled = true
-            restaurantsButton.isEnabled = true
-            mallsButton.isEnabled = true
-            museumsButton.isEnabled = true
-            hospitalsButton.isEnabled = true
+        loadingIndicator.stopAnimating()
+        
+        favoritesButton.isEnabled = true
+        restaurantsButton.isEnabled = true
+        mallsButton.isEnabled = true
+        museumsButton.isEnabled = true
+        hospitalsButton.isEnabled = true
+        
+        if let count = self.controller?.favoritePlaces?.count {
+            favoritesButton.isHidden = !(count > 0)
+        }
     }
     
     // MARK: - Navigation
@@ -104,6 +112,15 @@ class MainScreenView: UIViewController, CLLocationManagerDelegate {
             destination.screenType = selectedButtonIdentifier
             destination.long = controller?.long
             destination.lat = controller?.lat
+            destination.delegate = self.controller
+            
+            let backButton = UIBarButtonItem()
+            backButton.title = "Home"
+            navigationItem.backBarButtonItem = backButton
+            
+            if selectedButtonIdentifier == "favorites"{
+                destination.favorites = controller?.favoritePlaces
+            }
         }
     }
 }

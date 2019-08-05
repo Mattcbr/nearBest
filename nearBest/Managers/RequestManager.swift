@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import AlamofireImage
 
 protocol RequestDelegate: class{
     func didLoadPlaces(places:[PlaceModel] )
@@ -22,18 +23,26 @@ class RequestManager {
     
     func makeFirstRequest(category: String, lat: Double, long: Double) {
         let requestAddress = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(lat),\(long)&radius=1500&type=\(category)&key=\(apiKey)"
-//        let requestAddress = "https://nearbest-c19ec.firebaseio.com/results.json"
         weak var weakSelf = self
         Alamofire.request(requestAddress).responseJSON { (response) in
             switch response.result {
             case .success(let JSON):
-                print("Okay, success on first page. Parse that shit")
+                print("Success requesting first page")
                 if let placesArray = weakSelf?.parsingManager.parsePlaces(response: JSON) {
                     let sortedPlaces = placesArray.sorted{($0.ratings > $1.ratings)}
                     weakSelf?.delegate?.didLoadPlaces(places: sortedPlaces)
                 }
             case .failure(let error):
                 print("Failure: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func requestPicture(photoReference: String, completion: @escaping (_ image: UIImage) -> Void){
+        let requestAddress = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=\(photoReference)&key=\(apiKey)"
+        Alamofire.request(requestAddress).responseImage { response in
+            if let image = response.result.value {
+                completion(image)
             }
         }
     }
@@ -45,7 +54,7 @@ class RequestManager {
             Alamofire.request(requestAddress).responseJSON{ (response) in
                 switch response.result{
                 case .success(let JSON):
-                    print("Okay, success on next page. Parse that shit")
+                    print("Success requesting next page")
                     if let placesArray = weakSelf?.parsingManager.parsePlaces(response: JSON) {
                         let sortedPlaces = placesArray.sorted{($0.ratings > $1.ratings)}
                         weakSelf?.delegate?.didLoadPlaces(places: sortedPlaces)

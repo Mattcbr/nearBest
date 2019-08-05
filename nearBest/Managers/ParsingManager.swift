@@ -21,16 +21,31 @@ class ParsingManager {
         
         var placesArray = [PlaceModel] ()
         
+        let dbManager = DataBaseManager.sharedInstance
+        
         places?.forEach{ newPlace in
             let id = newPlace["id"] as? String
             let name = newPlace["name"] as? String
             let rating = newPlace["rating"] as? Double
             let ratingsCount = newPlace["user_ratings_total"] as? Int
+            let photoDetails = newPlace["photos"] as? [[String : Any]]
+            
+            var photoReference: String?
+            photoDetails?.forEach{ newDetail in
+                photoReference = newDetail["photo_reference"] as? String
+            }
+            
+            var isFavorite = false
+            if let idToVerify = id {
+                isFavorite = dbManager.verifyIfIsFavorite(placeID: idToVerify)
+            }
             
             let newPlace = PlaceModel(newId: id,
                                       newName: name,
                                       newRating: rating,
-                                      newRatingsCount: ratingsCount)
+                                      newRatingsCount: ratingsCount,
+                                      newIsFavorite: isFavorite,
+                                      newPhotoReference: photoReference)
             placesArray.append(newPlace)
         }
         return placesArray

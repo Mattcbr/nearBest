@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol DetailsCellDelegate: class{
+    func didPressFavoriteButton(cell: DetailsCell)
+}
+
 class DetailsCell: UICollectionViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
@@ -15,9 +19,17 @@ class DetailsCell: UICollectionViewCell {
     @IBOutlet weak var totalRatingsLabel: UILabel!
     @IBOutlet weak var favoritesButton: UIButton!
     @IBOutlet weak var bestPlaceIndicator: UIImageView!
+    @IBOutlet weak var placeThumbnail: UIImageView!
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    
+    var isFavoritePlace: Bool = false
+    var delegate: DetailsCellDelegate?
     
     func setupForPlace(place:PlaceModel){
        
+        loadingIndicator.startAnimating()
+        loadingIndicator.hidesWhenStopped = true
+        
         let nameText = place.name ?? "Name not available"
         let bgcolor = UIColor(red: 0.1961, green: 0.1961, blue: 0.1961, alpha: 0.7)
         
@@ -27,7 +39,6 @@ class DetailsCell: UICollectionViewCell {
         } else {
             ratingText = "Rating:\(place.ratings)"
         }
-        
         
         var ratingsCountText: String
         if let ratingsCount = place.ratingsCount{
@@ -40,10 +51,24 @@ class DetailsCell: UICollectionViewCell {
         ratingLabel.text = ratingText
         totalRatingsLabel.text = ratingsCountText
         bestPlaceIndicator.isHidden = true
+        placeThumbnail.image = place.thumbnail
         
         nameLabel.backgroundColor = bgcolor
         ratingLabel.backgroundColor = bgcolor
         totalRatingsLabel.backgroundColor = bgcolor
+        
+        let favoritePlaceIndicator = UIImage(named: "favorite_full_icon")
+        let notFavoritePlaceIndicator = UIImage(named: "favorite_empty_icon")
+        
+        if(place.isFavorite){
+            favoritesButton.setImage(favoritePlaceIndicator, for: .normal)
+        } else {
+            favoritesButton.setImage(notFavoritePlaceIndicator, for: .normal)
+        }
+        
+        if(place.isThumbnailLoaded){
+            loadingIndicator.stopAnimating()
+        }
     }
     
     func isBestAround(){
@@ -52,5 +77,11 @@ class DetailsCell: UICollectionViewCell {
         ratingLabel.backgroundColor = goldenColor
         totalRatingsLabel.backgroundColor = goldenColor
         bestPlaceIndicator.isHidden = false
+    }
+    
+    //MARK: FAVORITES MANAGEMENT
+    
+    @IBAction func didPressFavoritesButton(_ sender: Any) {
+        self.delegate?.didPressFavoriteButton(cell: self)
     }
 }

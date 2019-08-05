@@ -9,7 +9,7 @@
 import Foundation
 import CoreLocation
 
-class MainScreenController: NSObject, CLLocationManagerDelegate {
+class MainScreenController: NSObject, CLLocationManagerDelegate, DetailsScreenControllerDelegate {
     
     let locationManager = CLLocationManager()
     var lat: Double?
@@ -20,6 +20,9 @@ class MainScreenController: NSObject, CLLocationManagerDelegate {
     var isLocationSet: Bool = false
     var isDBRead: Bool = false
     
+    let dbManager = DataBaseManager.sharedInstance
+    var favoritePlaces : [PlaceModel]?
+    
     init(view: MainScreenView) {
         super.init()
         
@@ -28,6 +31,12 @@ class MainScreenController: NSObject, CLLocationManagerDelegate {
         locationManager.requestWhenInUseAuthorization()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        
+        dbManager.startDB()
+        dbManager.getFavoritePlaces { (favoritesArray) in
+            self.didFinishLoadingFavorites(favorites: favoritesArray)
+            print("Favorites Loading Finished. Favorites Count:\(favoritesArray.count)")
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -52,9 +61,22 @@ class MainScreenController: NSObject, CLLocationManagerDelegate {
         }
     }
     
+    func didFinishLoadingFavorites(favorites:[PlaceModel]){
+        self.favoritePlaces = favorites
+        self.isDBRead = true
+        verifyIfFirstLoadsAreFinished()
+    }
+    
     func verifyIfFirstLoadsAreFinished(){
-        if(isLocationSet){
+        if(isLocationSet && isDBRead){
             view?.removeLoadingIndicators()
+        }
+    }
+    
+    //MARK: Details Controller Delegate
+    func reloadFavoritePlaces() {
+        dbManager.getFavoritePlaces { (favoritesArray) in
+            self.didFinishLoadingFavorites(favorites: favoritesArray)
         }
     }
 }

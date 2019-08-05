@@ -10,23 +10,34 @@ import UIKit
 
 private let reuseIdentifier = "detailsCell"
 
-class DetailsScreenView: UICollectionViewController {
+class DetailsScreenView: UICollectionViewController, DetailsCellDelegate {
     
     public var screenType: String?
     public var lat: Double?
     public var long: Double?
-    private var controller: DetailsScreenController?
-    private var isLoadingData: Bool = true
+    public var favorites: [PlaceModel]?
+    fileprivate var controller: DetailsScreenController?
+    fileprivate var isLoadingData: Bool = true
+    
+    var delegate:DetailsScreenControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        controller = DetailsScreenController.init(view: self)
+        if let favoritePlaces = favorites {
+            controller = DetailsScreenController.init(view: self, delegate: delegate!, favorites: favoritePlaces)
+        } else {
+            controller = DetailsScreenController.init(view: self, delegate: delegate!, favorites: nil)
+        }
     }
     
     public func didLoadPlaces(){
         self.collectionView.reloadData()
         isLoadingData = false
+    }
+    
+    public func setupNavigation(withTitle title:String){
+        self.navigationItem.title = title
     }
     
     // MARK: UICollectionViewDataSource
@@ -35,7 +46,6 @@ class DetailsScreenView: UICollectionViewController {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return controller?.placesArray.count ?? 0
@@ -49,11 +59,25 @@ class DetailsScreenView: UICollectionViewController {
         let placeToDisplay = controller?.placesArray[indexPath.row]
         if let place = placeToDisplay {
             cell.setupForPlace(place: place)
-            if(controller?.placesArray.first == place){
+            
+            if (!place.isThumbnailLoaded){
+                controller?.loadImage(forPlace: place, completion: { (newThumbnail) in
+                    place.thumbnail = newThumbnail
+                    place.isThumbnailLoaded = true
+                    cell.placeThumbnail.image = newThumbnail
+                    cell.setupForPlace(place: place)
+                    if(self.controller?.placesArray.first == place && self.favorites == nil){
+                        cell.isBestAround()
+                    }
+                })
+            }
+            
+            if(controller?.placesArray.first == place && favorites == nil){
                 cell.isBestAround()
             }
         }
-    
+        
+        cell.delegate = self
         return cell
     }
 
@@ -66,11 +90,57 @@ class DetailsScreenView: UICollectionViewController {
         
         let diff = scrollContentSizeHeight - scrollOffset - scrollViewHeight    //This detects if the scroll is near the botom of the scroll view
         
-        if (diff<30 && !isLoadingData)    //If the scroll is near the bottom, and there is no data being loaded, make a new request.
+        if (diff<40 && !isLoadingData)    //If the scroll is near the bottom, and there is no data being loaded, make a new request.
         {
             controller?.requestMorePlaces()
             isLoadingData = true
         }
     }
     
+    //MARK: Details Cell Delegate
+    
+    func didPressFavoriteButton(cell: DetailsCell) {
+        let position = collectionView.indexPath(for: cell)?.row
+        if let placePosition = position{
+            controller?.didPressFavorite(forPlaceAt: placePosition)
+        }
+    }
+    
+    func showRemoveFromFavoritesAlert(forPlace place: PlaceModel){
+        
+        let alertPlaceName = place.name ?? "this place"
+        let alert = UIAlertController(title: "Are you sure?",
+                                      message: "Do you really want to delete \(alertPlaceName) from your favorites?",
+                                      preferredStyle: .actionSheet)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
+            self.controller?.removeFromFavorites(place: place)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func didChangeFavoriteStatus(forElementAt index: Int){
+        let indexPathToReload = IndexPath(row: index, section: 0)
+        self.collectionView.reloadItems(at: [indexPathToReload])
+    }
+}
+
+
+extension DetailsScreenView: UICollectionViewDelegateFlowLayout{
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0;
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.size.width, height: 200);
+    }
 }
