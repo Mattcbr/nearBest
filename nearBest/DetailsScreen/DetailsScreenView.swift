@@ -16,7 +16,7 @@ class DetailsScreenView: UICollectionViewController, DetailsCellDelegate {
     public var lat: Double?
     public var long: Double?
     public var favorites: [PlaceModel]?
-    fileprivate var controller: DetailsScreenController?
+    public var controller: DetailsScreenController?
     fileprivate var isLoadingData: Bool = true
     
     var delegate:DetailsScreenControllerDelegate?
@@ -24,10 +24,12 @@ class DetailsScreenView: UICollectionViewController, DetailsCellDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let favoritePlaces = favorites {
-            controller = DetailsScreenController.init(view: self, delegate: delegate!, favorites: favoritePlaces)
-        } else {
-            controller = DetailsScreenController.init(view: self, delegate: delegate!, favorites: nil)
+        if let newDelegate = delegate {
+            if let favoritePlaces = favorites {
+                controller = DetailsScreenController.init(view: self, delegate: newDelegate, favorites: favoritePlaces)
+            } else {
+                controller = DetailsScreenController.init(view: self, delegate: newDelegate, favorites: nil)
+            }
         }
     }
     
@@ -43,7 +45,6 @@ class DetailsScreenView: UICollectionViewController, DetailsCellDelegate {
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 

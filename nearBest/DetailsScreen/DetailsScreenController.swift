@@ -29,7 +29,7 @@ class DetailsScreenController: RequestDelegate {
             
             var navigationTitle = "Best \(category)s around"
             if let favoritePlaces = favorites{
-                placesArray = favoritePlaces
+                didLoadPlaces(places: favoritePlaces)
                  navigationTitle = "Your Favorites"
             } else if let latitude = view.lat, let longitude = view.long {
                 var adjustedCategory = category.replacingOccurrences(of: " ", with: "_")

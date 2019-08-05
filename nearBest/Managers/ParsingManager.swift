@@ -30,9 +30,11 @@ class ParsingManager {
             let ratingsCount = newPlace["user_ratings_total"] as? Int
             let photoDetails = newPlace["photos"] as? [[String : Any]]
             
-            var photoReference: String?
-            photoDetails?.forEach{ newDetail in
-                photoReference = newDetail["photo_reference"] as? String
+            var photoReference = newPlace["photo_reference"]as? String
+            if(photoReference == nil){
+                photoDetails?.forEach{ newDetail in
+                    photoReference = newDetail["photo_reference"] as? String
+                }
             }
             
             var isFavorite = false

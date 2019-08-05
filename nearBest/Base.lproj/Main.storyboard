@@ -29,7 +29,7 @@
         <!--nearBest-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MainScreenView" customModule="nearBest" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mainScreenView" id="BYZ-38-t0r" customClass="MainScreenView" customModule="nearBest" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -133,7 +133,7 @@
         <!--Details Screen View-->
         <scene sceneID="E6k-zQ-nee">
             <objects>
-                <collectionViewController id="Xbb-g7-SWu" customClass="DetailsScreenView" customModule="nearBest" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="detailsScreenView" id="Xbb-g7-SWu" customClass="DetailsScreenView" customModule="nearBest" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="re4-Hs-Ggs">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
