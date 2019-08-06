@@ -105,19 +105,6 @@ class DataBaseManager {
             do {
                 
                 try db.executeUpdate("INSERT INTO Favorites(id, name, rating, ratingsCount, photoReference) VALUES (?, ?, ?, ?, ?)", values: [place.id, place.name, place.ratings, place.ratingsCount, place.photoReference])
-                
-                
-                /*createImageDirectory()
-                
-                let imagePath = try defaultFileManager.url(for: .documentDirectory,
-                                                           in: .userDomainMask,
-                                                           appropriateFor: nil,
-                                                           create: false).appendingPathComponent("/images/\(movie.id).jpg")
-                
-                let imageData = movie.thumbnail.jpegData(compressionQuality: 0.5)
-                defaultFileManager.createFile(atPath: imagePath.path, contents: imageData, attributes: nil)
-                
-                print("\(movie.title) added to favorites")*/
             } catch {
                 print("Error while saving movie: \(error.localizedDescription)")
             }
@@ -128,12 +115,6 @@ class DataBaseManager {
         self.dbQueue?.inDatabase{db in
             do{
                 try db.executeUpdate("DELETE FROM Favorites WHERE id = ?", values: [place.id])
-                
-                /*let imagePath = try defaultFileManager.url(for: .documentDirectory,
-                                                           in: .userDomainMask,
-                                                           appropriateFor: nil,
-                                                           create: false).appendingPathComponent("/images/\(movie.id).jpg")
-                try defaultFileManager.removeItem(at: imagePath)*/
                 print("Succesfully removed \(place.name) from favorites")
             }catch{
                 print("Error removing \(place.name) from favorites: \(error.localizedDescription)")
