@@ -128,6 +128,15 @@ class DetailsScreenView: UICollectionViewController, DetailsCellDelegate {
         let indexPathToReload = IndexPath(row: index, section: 0)
         self.collectionView.reloadItems(at: [indexPathToReload])
     }
+    
+    func showErrorAlert(error: Error){
+        let alert = UIAlertController(title: "Loading Failure", message: "\(error.localizedDescription)", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default) { (action) in
+            self.navigationController?.popToRootViewController(animated: true)
+        }
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
+    }
 }
 
 

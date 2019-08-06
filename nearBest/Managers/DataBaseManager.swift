@@ -24,7 +24,7 @@ class DataBaseManager {
                                                       in: .userDomainMask,
                                                       appropriateFor: nil,
                                                       create: false).appendingPathComponent("placesDatabase.sqlite")
-            print("Address: \(fileURL)")
+            
             dbQueue = FMDatabaseQueue(path: fileURL.path)
             
         }

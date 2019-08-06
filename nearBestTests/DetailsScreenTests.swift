@@ -72,10 +72,11 @@ class DetailsScreenTests: XCTestCase {
     }
 
     func testRemovingFromFavorites(){
-        let initialStatus = secondTestPlace.isFavorite
-        let placesArray = [testPlace, secondTestPlace, testPlace]
+        testPlace.isFavorite = true
+        let initialStatus = testPlace.isFavorite
+        let placesArray = [secondTestPlace, testPlace, secondTestPlace]
         detailsController?.placesArray = placesArray
-        detailsController?.removeFromFavorites(place: secondTestPlace)
+        detailsController?.removeFromFavorites(place: testPlace)
         let retrievedPlace = detailsController?.placesArray[1]
         
         XCTAssertNotEqual(initialStatus, retrievedPlace?.isFavorite)

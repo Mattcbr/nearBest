@@ -52,7 +52,7 @@ class DetailsScreenController: RequestDelegate {
     }
     
     func didFailToLoadPlaces(withError error: Error) {
-        //TODO: Error Handling
+        self.view.showErrorAlert(error: error)
     }
     
     //MARK: Request More Places

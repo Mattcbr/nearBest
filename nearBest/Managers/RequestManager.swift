@@ -33,7 +33,7 @@ class RequestManager {
                     weakSelf?.delegate?.didLoadPlaces(places: sortedPlaces)
                 }
             case .failure(let error):
-                print("Failure: \(error.localizedDescription)")
+                weakSelf?.delegate?.didFailToLoadPlaces(withError: error)
             }
         }
     }
