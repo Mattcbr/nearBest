@@ -12,7 +12,7 @@ import UIKit
 
 class DataBaseManager {
     static let sharedInstance = DataBaseManager()
-    private let latestDBversion: Int32 = 1
+    private let latestDBversion: Int32 = 2
     
     private var dbQueue: FMDatabaseQueue?
     private let Parser = ParsingManager.sharedInstance
@@ -40,7 +40,7 @@ class DataBaseManager {
                     if(dbVersion >= latestDBversion){
                         print("DB Already in latest Version")
                     } else {
-                        migrateDB(fromVersion: dbVersion)
+                        migrateDB(fromVersion: dbVersion, db: db)
                     }
                 }
             } catch {
@@ -61,7 +61,24 @@ class DataBaseManager {
         }
     }
     
-    fileprivate func migrateDB(fromVersion version:Int32){
+    fileprivate func migrateDB(fromVersion version:Int32, db: FMDatabase){
+        var updatedVersion = version
+        var noError = true
+        switch updatedVersion {
+        case 1:
+            do {
+                try db.executeUpdate("ALTER TABLE Favorites ADD photoReference TEXT", values: nil)
+            } catch{
+                print("Error updating database to version:\(version+1). Error: \(error.localizedDescription)")
+                noError = false
+            }
+            updatedVersion += 1
+        default:
+            break
+        }
+        if(noError){
+            updateDBVersionInTable(db: db)
+        }
     }
     
     fileprivate func updateDBVersionInTable(db: FMDatabase) {
@@ -103,7 +120,6 @@ class DataBaseManager {
     open func addToFavorites(place: PlaceModel) {
         self.dbQueue?.inDatabase{ db in
             do {
-                
                 try db.executeUpdate("INSERT INTO Favorites(id, name, rating, ratingsCount, photoReference) VALUES (?, ?, ?, ?, ?)", values: [place.id, place.name, place.ratings, place.ratingsCount, place.photoReference])
             } catch {
                 print("Error while saving movie: \(error.localizedDescription)")
