@@ -18,6 +18,9 @@ class DataBaseManager {
     private let Parser = ParsingManager.sharedInstance
     private let defaultFileManager = FileManager.default
     
+    /**
+     This function starts the database
+     */
     open func startDB() {
         if(dbQueue == nil) {
             let fileURL = try! defaultFileManager.url(for: .documentDirectory,
@@ -31,6 +34,9 @@ class DataBaseManager {
         verifyDBVersion()
     }
     
+    /**
+     This function verifies the database version and decides if the database tables should be updated, created from scratch or, if the version is already the latest, nothing should be done.
+     */
     fileprivate func verifyDBVersion() {
         self.dbQueue?.inDatabase { db in
             do {
@@ -50,6 +56,10 @@ class DataBaseManager {
         }
     }
     
+    /**
+     This function creates all the database's tables from scratch. The created tables will be in the latest version.
+     - parameter db: The database where all the tables should be created
+     */
     fileprivate func createDBInLatestVersion(db: FMDatabase) {
         do {
             try db.executeUpdate("CREATE TABLE IF NOT EXISTS Favorites(id TEXT PRIMARY KEY NOT NULL, name TEXT, rating REAL, ratingsCount REAL, photoReference TEXT)", values: nil)
@@ -61,6 +71,11 @@ class DataBaseManager {
         }
     }
     
+    /**
+     This function migrates all the database's tables from an older version to the latest one.
+     - parameter fromVersion: The actual version of the tables in the database.
+     - parameter db: The database where all the tables should be updated.
+     */
     fileprivate func migrateDB(fromVersion version:Int32, db: FMDatabase){
         var updatedVersion = version
         var noError = true
@@ -81,6 +96,10 @@ class DataBaseManager {
         }
     }
     
+    /**
+     This function updates the version of the database in the table that stores the database's version.
+     - parameter db: The database where the version should be updated.
+     */
     fileprivate func updateDBVersionInTable(db: FMDatabase) {
         do {
             try db.executeUpdate("INSERT OR REPLACE INTO dbVersion (id, version) VALUES ('1',?)", values: [latestDBversion])
@@ -89,6 +108,12 @@ class DataBaseManager {
         }
     }
     
+    /**
+     This function gets all the favorite places saved in the database.
+     
+     - parameter completion: The callback called after retrieval of the favorite places.
+     - parameter favorites: An array with all the favorite places saved in the database.
+     */
     open func getFavoritePlaces(completion: @escaping (_ favorites: [PlaceModel]) -> Void){
         var favoritePlaces = [PlaceModel]()
         self.dbQueue?.inDatabase{ db in
@@ -112,11 +137,15 @@ class DataBaseManager {
                 }
                 completion(favoritePlaces)
             } catch {
-                
+                print("Error getting favorites:\(error)")
             }
         }
     }
     
+    /**
+     This function saves a place in the favorite places database.
+     - parameter place: The place that should be saved to the favorites.
+     */
     open func addToFavorites(place: PlaceModel) {
         self.dbQueue?.inDatabase{ db in
             do {
@@ -127,6 +156,10 @@ class DataBaseManager {
         }
     }
     
+    /**
+     This function removes a place from the favorite places database.
+     - parameter place: The place that should be removed from the favorites.
+     */
     open func removeFromFavorites(place: PlaceModel) {
         self.dbQueue?.inDatabase{db in
             do{
@@ -138,21 +171,11 @@ class DataBaseManager {
         }
     }
     
-    open func getFavoritesQuantity() -> Int{
-        var quantity = Int()
-        self.dbQueue?.inDatabase { db in
-            do {
-                let favoritesCounter = try db.executeQuery("SELECT COUNT(*) FROM Favorites", values: nil)
-                if (favoritesCounter.next()){
-                    quantity = Int(favoritesCounter.int(forColumn: "COUNT(*)"))
-                }
-            } catch {
-                print("Error getting quantity of Favorites:\(error.localizedDescription)")
-            }
-        }
-        return quantity
-    }
-    
+    /**
+     This function verify if a place is saved in the favorites database.
+     - parameter placeID: The place id of the place that should be verified.
+     - Returns: A boolean indicating if the place is saved in the favorites database.
+     */
     open func verifyIfIsFavorite(placeID: String) -> Bool{
         var isFavorite: Bool = false
         self.dbQueue?.inDatabase { db in
@@ -162,7 +185,7 @@ class DataBaseManager {
                     isFavorite = true
                 }
             } catch {
-                
+                print("Error verifying if place with id \(placeID) is in the favorites:\n\(error.localizedDescription)")
             }
         }
         return isFavorite

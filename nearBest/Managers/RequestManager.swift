@@ -21,6 +21,13 @@ class RequestManager {
     let apiKey = "AIzaSyBV2SPI3UpZK1e5llkioYiFN-zy-fDRaR0"
     let parsingManager = ParsingManager.sharedInstance
     
+    /**
+     This function makes the first request of places.
+     - Parameter category: The places category that should be requested.
+     - Parameter lat: The device's latitude.
+     - Parameter long: The device's longitude.
+     */
+    
     func makeFirstRequest(category: String, lat: Double, long: Double) {
         let requestAddress = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(lat),\(long)&radius=1500&type=\(category)&key=\(apiKey)"
         weak var weakSelf = self
@@ -38,6 +45,12 @@ class RequestManager {
         }
     }
     
+    /**
+     This function requests the picture of a specific place.
+     - Parameter photoReference: The photo reference (address) where the required image is.
+     - Parameter completion: The callback called after retrieval of the image.
+     - Parameter image: The requested image.
+     */
     func requestPicture(photoReference: String, completion: @escaping (_ image: UIImage) -> Void){
         let requestAddress = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=\(photoReference)&key=\(apiKey)"
         Alamofire.request(requestAddress).responseImage { response in
@@ -47,6 +60,10 @@ class RequestManager {
         }
     }
     
+    /**
+     This function requests the subsequent places after a first call.
+     - Precondition: a call to the *makeFirstRequest* function should be done before.
+     */
     func requestNextPage(){
         if let token = parsingManager.nextPageToken {
             let requestAddress = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?pagetoken=\(token)&key=\(apiKey)"

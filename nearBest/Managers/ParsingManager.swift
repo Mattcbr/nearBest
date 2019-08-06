@@ -14,6 +14,12 @@ class ParsingManager {
     public var nextPageToken: String?
     
     //MARK: Parsing information from the API
+    
+    /**
+     This function parses places retrieved from the API.
+     - parameter response: The API's response
+     - Returns: An array with the places retrieved from the API.
+     */
     func parsePlaces(response: Any) -> [PlaceModel] {
         let JSONresponse = response as? [String : Any]
         nextPageToken = JSONresponse?["next_page_token"] as? String

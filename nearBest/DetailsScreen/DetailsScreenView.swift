@@ -33,11 +33,18 @@ class DetailsScreenView: UICollectionViewController, DetailsCellDelegate {
         }
     }
     
+    /**
+     This function reloads the collection view data to reflect the new places that were loaded.
+     */
     public func didLoadPlaces(){
         self.collectionView.reloadData()
         isLoadingData = false
     }
     
+    /**
+     This function sets the navigation iten's title.
+     - Parameter title: The text that should be shown in the navigation iten's title.
+     */
     public func setupNavigation(withTitle title:String){
         self.navigationItem.title = title
     }
@@ -91,8 +98,7 @@ class DetailsScreenView: UICollectionViewController, DetailsCellDelegate {
         
         let diff = scrollContentSizeHeight - scrollOffset - scrollViewHeight    //This detects if the scroll is near the botom of the scroll view
         
-        if (diff<40 && !isLoadingData)    //If the scroll is near the bottom, and there is no data being loaded, make a new request.
-        {
+        if (diff<40 && !isLoadingData) {   //If the scroll is near the bottom, and there is no data being loaded, make a new request.
             controller?.requestMorePlaces()
             isLoadingData = true
         }
@@ -100,13 +106,21 @@ class DetailsScreenView: UICollectionViewController, DetailsCellDelegate {
     
     //MARK: Details Cell Delegate
     
+    /**
+     This function is called whenever a favorite button is pressed in a cell.
+     - Parameter cell: The cell where the "favorite" button was pressed.
+     */
     func didPressFavoriteButton(cell: DetailsCell) {
         let position = collectionView.indexPath(for: cell)?.row
-        if let placePosition = position{
+        if let placePosition = position {
             controller?.didPressFavorite(forPlaceAt: placePosition)
         }
     }
     
+    /**
+     This function shows a confirmation alert asking if the user really wants to remove a place from the favorites.
+     - Parameter place: The place that the user should confirm if he wants removed from the favorites.
+     */
     func showRemoveFromFavoritesAlert(forPlace place: PlaceModel){
         
         let alertPlaceName = place.name ?? "this place"
@@ -124,11 +138,19 @@ class DetailsScreenView: UICollectionViewController, DetailsCellDelegate {
         self.present(alert, animated: true, completion: nil)
     }
     
+    /**
+     This function reloads a cell where the place's favorite status was changed.
+     - Parameter index: Index of the cell that should be reloaded.
+     */
     func didChangeFavoriteStatus(forElementAt index: Int){
         let indexPathToReload = IndexPath(row: index, section: 0)
         self.collectionView.reloadItems(at: [indexPathToReload])
     }
     
+    /**
+     This function handles errors when gathering places to show.
+     - Parameter error: The error captured when trying to gather places to show.
+     */
     func showErrorAlert(error: Error){
         let alert = UIAlertController(title: "Loading Failure", message: "\(error.localizedDescription)", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "Ok", style: .default) { (action) in

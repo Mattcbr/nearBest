@@ -37,6 +37,9 @@ class MainScreenView: UIViewController, CLLocationManagerDelegate {
     
     //MARK: - Location Settings
     
+    /**
+     This function shows an error message explaining that the app needs location permission. It also gives the user a button to go to the app's settings and change that permission.
+     */
     func showLocationErrorMessage(){
         let locationErrorAlert = UIAlertController(title: "Location permission",
                                                    message: "In order to be used, this app needs the location permission. Please, go to settings and change that permission",
@@ -56,6 +59,11 @@ class MainScreenView: UIViewController, CLLocationManagerDelegate {
     
     //MARK: - Buttons Settings
     
+    /**
+     This function sets up the buttons, hides unneccessary buttons and disables all the buttons.
+     
+     This function should be called before the first API request and DB load.
+     */
     func setupButtons(){
         favoritesButton.addTarget(self, action: #selector(didPressButton(sender:)), for: .touchUpInside)
         restaurantsButton.addTarget(self, action: #selector(didPressButton(sender:)), for: .touchUpInside)
@@ -72,6 +80,10 @@ class MainScreenView: UIViewController, CLLocationManagerDelegate {
         hospitalsButton.isEnabled = false
     }
     
+    /**
+     This function is called whenever a button is pressed and sets the "selectedButtonIdentifier" variable.
+     - Parameter sender: The pressed button.
+     */
     @objc func didPressButton(sender: UIButton){
         switch sender {
         case favoritesButton:
@@ -90,6 +102,9 @@ class MainScreenView: UIViewController, CLLocationManagerDelegate {
         self.performSegue(withIdentifier: "showPlacesSegue", sender: self)
     }
     
+    /**
+     This function removes the loading indicator, enables all the buttons, and verifies if the "Favorites" button should be shown.
+     */
     func removeLoadingIndicators(){
         loadingIndicator.stopAnimating()
         

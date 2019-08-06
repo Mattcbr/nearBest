@@ -25,6 +25,10 @@ class DetailsCell: UICollectionViewCell {
     var isFavoritePlace: Bool = false
     var delegate: DetailsCellDelegate?
     
+    /**
+     This function makes the cell setup for a determined place.
+     - parameter place: The place that the cell should be setup for.
+     */
     func setupForPlace(place:PlaceModel){
        
         loadingIndicator.startAnimating()
@@ -71,6 +75,9 @@ class DetailsCell: UICollectionViewCell {
         }
     }
     
+    /**
+     This function changes the cell design to be the design of a "best place" cell.
+     */
     func isBestAround(){
         let goldenColor = UIColor(red: 0.9294, green: 0.7176, blue: 0.2314, alpha: 0.8)
         nameLabel.backgroundColor = goldenColor
@@ -81,6 +88,10 @@ class DetailsCell: UICollectionViewCell {
     
     //MARK: FAVORITES MANAGEMENT
     
+    /**
+     This function warns the delegate that a "favorite" button was pressed.
+     - Parameter sender: The sender of the pressing action.
+     */
     @IBAction func didPressFavoritesButton(_ sender: Any) {
         self.delegate?.didPressFavoriteButton(cell: self)
     }

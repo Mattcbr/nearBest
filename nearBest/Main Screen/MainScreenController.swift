@@ -60,13 +60,19 @@ class MainScreenController: NSObject, CLLocationManagerDelegate, DetailsScreenCo
             break
         }
     }
-    
+    /**
+     This function sets the favorite places.
+     - Parameter favorites: The favorite places retrieved.
+     */
     func didFinishLoadingFavorites(favorites:[PlaceModel]){
         self.favoritePlaces = favorites
         self.isDBRead = true
         verifyIfFirstLoadsAreFinished()
     }
     
+    /**
+     This function verifies if the first loads are finished and tells the view to remove all the loading indicators and set itself up.
+     */
     func verifyIfFirstLoadsAreFinished(){
         if(isLocationSet && isDBRead){
             view?.removeLoadingIndicators()
