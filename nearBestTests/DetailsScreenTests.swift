@@ -81,5 +81,4 @@ class DetailsScreenTests: XCTestCase {
         
         XCTAssertNotEqual(initialStatus, retrievedPlace?.isFavorite)
     }
-    
 }

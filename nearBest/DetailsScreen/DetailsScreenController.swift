@@ -116,7 +116,6 @@ class DetailsScreenController: RequestDelegate {
      - Parameter place: The place that should be removed from the favorite places.
      */
     public func removeFromFavorites(place: PlaceModel){
-        print("Okay, removing \(place.name) from favorites")
         if let index = placesArray.lastIndex(of: place) {
             placesArray[index].isFavorite = !placesArray[index].isFavorite
             self.view.didChangeFavoriteStatus(forElementAt: index)
