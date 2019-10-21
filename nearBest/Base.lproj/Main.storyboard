@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hKs-WS-OZ2">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hKs-WS-OZ2">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,7 +13,7 @@
             <objects>
                 <navigationController id="hKs-WS-OZ2" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="vbB-pg-IKK">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -35,10 +33,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Sib-Cg-bha">
-                                <rect key="frame" x="16" y="224.5" width="343" height="282"/>
+                                <rect key="frame" x="16" y="214.5" width="343" height="282"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Osd-5w-B78">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="343.00000000000045" height="50.000000000000114"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="oOg-Qu-P4b"/>
                                         </constraints>
@@ -48,7 +46,7 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tZ2-0e-b1Y">
-                                        <rect key="frame" x="0.0" y="58" width="343" height="50"/>
+                                        <rect key="frame" x="0.0" y="58" width="343.00000000000045" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="o88-nA-yib"/>
                                         </constraints>
@@ -58,7 +56,7 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gVS-YU-GSe">
-                                        <rect key="frame" x="0.0" y="116" width="343" height="50"/>
+                                        <rect key="frame" x="0.0" y="116" width="343.00000000000045" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="Ljg-EV-8ha"/>
                                         </constraints>
@@ -68,7 +66,7 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T68-XN-XYd">
-                                        <rect key="frame" x="0.0" y="174" width="343" height="50"/>
+                                        <rect key="frame" x="0.0" y="174" width="343.00000000000045" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="faL-B1-Qp2"/>
                                         </constraints>
@@ -78,7 +76,7 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="14z-aJ-H4i">
-                                        <rect key="frame" x="0.0" y="232" width="343" height="50"/>
+                                        <rect key="frame" x="0.0" y="232" width="343.00000000000045" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="R7F-ds-Hso"/>
                                         </constraints>
@@ -90,16 +88,15 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where do you want to go?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z7q-DG-DAc">
-                                <rect key="frame" x="16" y="96" width="343" height="36"/>
+                                <rect key="frame" x="16" y="76" width="343" height="36"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="0mA-dm-1AO">
-                                <rect key="frame" x="177.5" y="355.5" width="20" height="20"/>
+                                <rect key="frame" x="177.5" y="345.5" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Z7q-DG-DAc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="1se-TM-JrJ"/>
                             <constraint firstItem="Sib-Cg-bha" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Z7q-DG-DAc" secondAttribute="bottom" constant="16" id="6Z1-Ap-GRf"/>
@@ -137,7 +134,7 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="re4-Hs-Ggs">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="QhZ-ng-6w6">
                             <size key="itemSize" width="160" height="250"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -246,12 +243,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="best_indicator" width="144" height="137.75999450683594"/>
+        <image name="best_indicator" width="300" height="287"/>
         <image name="favorite_empty_icon" width="22" height="21"/>
-        <image name="favorites" width="959.52001953125" height="186.72000122070312"/>
-        <image name="hospital" width="959.52001953125" height="277"/>
-        <image name="malls" width="959.52001953125" height="158.8800048828125"/>
-        <image name="museum" width="959.52001953125" height="128.63999938964844"/>
-        <image name="restaurants" width="959.52001953125" height="236.63999938964844"/>
+        <image name="favorites" width="1999" height="389"/>
+        <image name="hospital" width="1999" height="577"/>
+        <image name="malls" width="1999" height="331"/>
+        <image name="museum" width="1999" height="268"/>
+        <image name="restaurants" width="1999" height="493"/>
     </resources>
 </document>

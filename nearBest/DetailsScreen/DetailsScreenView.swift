@@ -98,7 +98,7 @@ class DetailsScreenView: UICollectionViewController, DetailsCellDelegate {
         
         let diff = scrollContentSizeHeight - scrollOffset - scrollViewHeight    //This detects if the scroll is near the botom of the scroll view
         
-        if (diff<40 && !isLoadingData) {   //If the scroll is near the bottom, and there is no data being loaded, make a new request.
+        if (diff<40 && !isLoadingData && screenType != "favorites") {   //If the scroll is near the bottom, and there is no data being loaded, make a new request.
             controller?.requestMorePlaces()
             isLoadingData = true
         }
